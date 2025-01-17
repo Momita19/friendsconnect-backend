@@ -10,6 +10,9 @@ exports.signup = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
+    // if (!user) {
+    //   return res.status(404).json({ message: "User not found" });
+    // }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -18,6 +21,8 @@ exports.signup = async (req, res) => {
       email,
       password: hashedPassword,
     });
+    // save the user
+    // await user.save();
 
     const token = generateToken({ id: user._id });
 
